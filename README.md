@@ -22,3 +22,4 @@ RecyclerView 내 아이템 putExtra 함수 사용해 상세정보 표시
 - 평가 환경 : 안드로이드 스튜디오(version 3.6.1) / 안드로이드(version 10.0, API Level 29)
 
 ## Build Result
+2번 통신 성공 확인!!
