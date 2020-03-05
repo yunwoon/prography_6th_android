@@ -6,7 +6,7 @@ import java.util.List;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-
+//Fragment 랑 BottomNavigationView 연결하는 Adapter
 public class PageAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments = new ArrayList<>();
 

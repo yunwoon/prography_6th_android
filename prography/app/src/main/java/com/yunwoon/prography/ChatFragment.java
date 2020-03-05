@@ -18,6 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +29,7 @@ public class ChatFragment extends Fragment {
     private RecyclerAdaptor adaptor;
     private ArrayList<RecyclerModel> data = new ArrayList<>();
     public static final String BASE_URL = "https://ghibliapi.herokuapp.com";
+    private Gson gson;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,16 +49,19 @@ public class ChatFragment extends Fragment {
     }
 
     public void getGson(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        RestInterface restInterface = RetrofitClient.getRetrofit().create(RestInterface.class);
+        RetrofitClient<RestInterface> client;
+        RestInterface restInterface;
+
+        client = new RetrofitClient<>();
+        restInterface = client.getClient(RestInterface.class);
+
         Call<List<RecyclerModel>> call = restInterface.getRecyclerList();
         call.enqueue(new Callback<List<RecyclerModel>>() {
             @Override
             public void onResponse(Call<List<RecyclerModel>> call, Response<List<RecyclerModel>> response) {
                 data.clear();
-                List<RecyclerModel> jsonResponse = response.body();
-                data.addAll(jsonResponse);
+                List<RecyclerModel> modelList = response.body();
+                data.addAll(modelList);
                 adaptor = new RecyclerAdaptor(data);
                 recyclerView.setAdapter(adaptor);
                 adaptor.notifyDataSetChanged();
@@ -62,6 +69,7 @@ public class ChatFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<RecyclerModel>> call, Throwable t) {
+                Toast.makeText(getContext(),"호출 실패",Toast.LENGTH_SHORT).show();
                 Log.d("Error", t.getMessage());
             }
         });

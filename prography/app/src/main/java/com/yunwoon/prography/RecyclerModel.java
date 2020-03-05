@@ -1,13 +1,23 @@
 package com.yunwoon.prography;
 
+import com.google.gson.annotations.SerializedName;
+
 public class RecyclerModel {
+    @SerializedName("num")
     private int num;
+    @SerializedName("id")
     private String id;
+    @SerializedName("title")
     private String title;
+    @SerializedName("description")
     private String description;
+    @SerializedName("director")
     private String director;
+    @SerializedName("producer")
     private String producer;
+    @SerializedName("release_date")
     private String release_date;
+    @SerializedName("rt_score")
     private String rt_score;
 
     public int getNum() {
